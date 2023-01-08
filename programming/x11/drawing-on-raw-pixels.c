@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <X11/Xlib.h> // Most hated graphic library!!!
+#include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
 #define WIDTH  800
@@ -30,13 +30,9 @@ int main() {
   wa.event_mask = KeyPressMask | ButtonPressMask | ExposureMask;
   wa.save_under = True;
 
-  Window win = XCreateWindow(dpy, XRootWindow(dpy,screen), 0, 0, WIDTH, HEIGHT, 0, 
-                             XDefaultDepth(dpy,screen), InputOutput, XDefaultVisual(dpy,screen), 
+  Window win = XCreateWindow(dpy, XRootWindow(dpy,screen), 0, 0, WIDTH, HEIGHT, 0,
+                             XDefaultDepth(dpy,screen), InputOutput, XDefaultVisual(dpy,screen),
                              CWBorderPixel | CWBackPixel | CWEventMask | CWSaveUnder, &wa);
-  if (win == 0) {
-    fprintf(stderr,"ERROR: Could not create window\n");
-    exit(1);
-  }
 
   // Give the window manager hint about the dimention of window
   XSizeHints ws;
@@ -64,15 +60,15 @@ int main() {
   XEvent e;
   int run = 1;
   while(run) {
-    XNextEvent(dpy,&e);  
+    XNextEvent(dpy,&e);
 
-    switch (e.type) 
+    switch (e.type)
       {
         case KeyPress:
           {
             printf("Some key has pressed\n");
             XBell(dpy, 0);
-          } break; 
+          } break;
 
         case ButtonPress:
           {
@@ -108,3 +104,4 @@ int main() {
 
   return 0;
 }
+
